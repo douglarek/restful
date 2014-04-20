@@ -1,0 +1,96 @@
+<h1 id="restful">RESTful</h1>
+<p>A RESTful sample with Flask.</p>
+<ul>
+<li><p>get todo list:</p>
+<pre><code>&gt; curl -i -H &quot;Content-Type: application/json&quot; http://restful-flask.herokuapp.com/todo/api/tasks/
+
+HTTP/1.1 200
+Content-Length: 432
+Via: HTTP/1.1 GWA
+Server: gunicorn/18.0
+Connection: keep-alive
+Date: Sun, 06 Apr 2014 06:46:25 GMT
+Content-Type: application/json
+
+{
+  &quot;tasks&quot;: [
+    {
+      &quot;description&quot;: &quot;Amazon, 360buy, Dangdang&quot;,
+      &quot;done&quot;: false,
+      &quot;id&quot;: 1,
+      &quot;title&quot;: &quot;Buy Books&quot;,
+      &quot;uri&quot;: &quot;http://restful-flask.herokuapp.com/todo/api/tasks/1&quot;
+},
+    {
+      &quot;description&quot;: &quot;Need to find a good Haskell tutorial on the web&quot;,
+      &quot;done&quot;: false,
+      &quot;id&quot;: 2,
+      &quot;title&quot;: &quot;Learn Haskell&quot;,
+      &quot;uri&quot;: &quot;http://restful-flask.herokuapp.com/todo/api/tasks/2&quot;
+    }
+  ]
+}</code></pre></li>
+<li><p>create a todo item:</p>
+<pre><code>&gt; curl -i -H &quot;Content-Type: application/json&quot; -X POST -d &#39;{&quot;title&quot;: &quot;Learn Python&quot;, &quot;description&quot;: &quot;go Pythonic&quot;}&#39; http://restful-flask.herokuapp.com/todo/api/tasks/ -u admin:admin
+
+HTTP/1.1 201 CREATED
+Content-Type: application/json
+Date: Sun, 06 Apr 2014 06:49:30 GMT
+Server: gunicorn/18.0
+Content-Length: 151
+Connection: keep-alive
+
+{&quot;task&quot;: {&quot;done&quot;: false, &quot;uri&quot;: &quot;http://restful-flask.herokuapp.com/todo/api/tasks/3&quot;, &quot;description&quot;: &quot;go Pythonic&quot;,     &quot;title&quot;: &quot;Learn Python&quot;, &quot;id&quot;: 3}}</code></pre></li>
+<li><p>lookup a single todo item:</p>
+<pre><code>&gt; curl -i -H &quot;Content-Type: application/json&quot; http://restful-flask.herokuapp.com/todo/api/tasks/1
+
+HTTP/1.1 200
+Content-Length: 189
+Via: HTTP/1.1 GWA
+Server: gunicorn/18.0
+Connection: keep-alive
+Date: Sun, 06 Apr 2014 06:50:48 GMT
+Content-Type: application/json
+
+{
+  &quot;task&quot;: {
+  &quot;description&quot;: &quot;Amazon, 360buy, Dangdang&quot;,
+  &quot;done&quot;: false,
+  &quot;id&quot;: 1,
+  &quot;title&quot;: &quot;Buy Books&quot;,
+  &quot;uri&quot;: &quot;http://restful-flask.herokuapp.com/todo/api/tasks/1&quot;
+  }
+}</code></pre></li>
+<li><p>update a todo item:</p>
+<pre><code>&gt; curl -i -H &quot;Content-Type: application/json&quot; -X PUT -d &#39;{&quot;title&quot;: &quot;Learn Python&quot;, &quot;description&quot;: &quot;go Pythonic&quot;}&#39; http://restful-flask.herokuapp.com/todo/api/tasks/1 -u admin:admin
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+Date: Sun, 06 Apr 2014 06:51:49 GMT
+Server: gunicorn/18.0
+Content-Length: 179
+Connection: keep-alive
+
+{
+  &quot;task&quot;: {
+  &quot;description&quot;: &quot;go Pythonic&quot;,
+  &quot;done&quot;: false,
+  &quot;id&quot;: 1,
+  &quot;title&quot;: &quot;Learn Python&quot;,
+  &quot;uri&quot;: &quot;http://restful-flask.herokuapp.com/todo/api/tasks/1&quot;
+  }
+}</code></pre></li>
+<li><p>delete a todo item:</p>
+<pre><code>&gt; curl -i -H &quot;Content-Type: application/json&quot; -X DELETE  http://restful-flask.herokuapp.com/todo/api/tasks/1 -u    admin:admin
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+Date: Sun, 06 Apr 2014 06:57:36 GMT
+Server: gunicorn/18.0
+Content-Length: 22
+Connection: keep-alive
+
+{
+  &quot;result&quot;: &quot;True&quot;
+}</code></pre></li>
+</ul>
